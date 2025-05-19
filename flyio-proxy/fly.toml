@@ -1,0 +1,72 @@
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'immich-access'
+primary_region = 'iad'
+kill_signal = 'SIGTERM'
+kill_timeout = '2s'
+
+# frp server
+[[services]]
+  protocol = 'udp'
+  internal_port = 7000
+
+  [[services.ports]]
+    port = 7000
+
+  [services.concurrency]
+    type = 'connections'
+    hard_limit = 25
+    soft_limit = 20
+
+# [[services]]
+#   protocol = 'udp'
+#   internal_port = 7001
+
+#   [[services.ports]]
+#     port = 7001
+
+#   [services.concurrency]
+#     type = 'connections'
+#     hard_limit = 25
+#     soft_limit = 20
+
+# frp dashboard
+[[services]]
+  protocol = 'tcp'
+  internal_port = 8080
+
+  [[services.ports]]
+    port = 8080
+    handlers = ['http']
+
+  [services.concurrency]
+    type = 'connections'
+    hard_limit = 25
+    soft_limit = 20
+
+  [[services.tcp_checks]]
+    interval = '1m0s'
+    timeout = '2s'
+    grace_period = '1s'
+
+[[services]]
+  protocol = 'tcp'
+  internal_port = 443
+
+  [[services.ports]]
+    port = 443
+
+  [services.concurrency]
+    type = 'connections'
+    hard_limit = 25
+    soft_limit = 20
+
+  [[services.tcp_checks]]
+    interval = '1m0s'
+    timeout = '2s'
+    grace_period = '1s'
+
+
+[[vm]]
+  size = 'shared-cpu-1x'

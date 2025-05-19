@@ -1,0 +1,12 @@
+immich.gigabitbox.com {
+	tls {
+		dns cloudflare {env.CF_API_TOKEN}
+	}
+
+	reverse_proxy immich-server:2283 {
+		transport http {
+			keepalive 60m
+			keepalive_interval 10s
+		}
+	}
+}

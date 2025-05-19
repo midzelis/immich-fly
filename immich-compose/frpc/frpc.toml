@@ -1,0 +1,19 @@
+
+serverAddr = "YOUR_FLYIO_STATIC_IPV4"
+serverPort = 7000
+transport.tls.enable = true
+auth.token = "YOUR_AUTH_TOKEN"
+user = "immich"
+log.to = "/var/log/frpc.log"
+log.level = "debug"
+loginFailExit = false
+transport.protocol = "quic"
+
+[[proxies]]
+name = "caddy"
+type = "tcp"
+localIP = "caddy"
+localPort = 443
+remotePort = 443
+transport.useEncryption = true
+transport.useCompression = true
